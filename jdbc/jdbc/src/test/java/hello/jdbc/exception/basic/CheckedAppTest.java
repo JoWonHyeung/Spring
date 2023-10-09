@@ -11,9 +11,9 @@ import static org.assertj.core.api.Assertions.*;
 public class CheckedAppTest {
 
     @Test
-    void checked() {
+    void checked(){
         Controller controller = new Controller();
-        assertThatThrownBy(() -> controller.request())
+        Assertions.assertThatThrownBy(()->controller.request())
                 .isInstanceOf(Exception.class);
     }
 
@@ -25,7 +25,7 @@ public class CheckedAppTest {
         }
     }
 
-    static class Service {
+    static class Service{
         Repository repository = new Repository();
         NetworkClient networkClient = new NetworkClient();
 
@@ -33,17 +33,18 @@ public class CheckedAppTest {
             repository.call();
             networkClient.call();
         }
-
     }
 
-    static class NetworkClient {
+    static class NetworkClient{
         public void call() throws ConnectException {
             throw new ConnectException("연결 실패");
         }
     }
-    static class Repository {
-        public void call() throws SQLException {
+
+    static class Repository{
+        public void call() throws SQLException{
             throw new SQLException("ex");
         }
     }
+
 }
